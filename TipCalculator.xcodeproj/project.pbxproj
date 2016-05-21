@@ -14,9 +14,13 @@
 		E0897FDE1CF0665B00D3DDC8 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0897FDD1CF0665B00D3DDC8 /* Tip.swift */; };
 		E0897FE21CF066A400D3DDC8 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0897FE11CF066A400D3DDC8 /* TipViewController.swift */; };
 		E0897FE41CF067E200D3DDC8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0897FE31CF067E200D3DDC8 /* SettingViewController.swift */; };
+		E56B8CDD6BB43CC49D04315A /* Pods_TipCalculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9C1F640ACBBA7A5A471B0A /* Pods_TipCalculator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DDEFE7B222B64C15E59804C /* Pods-TipCalculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TipCalculator.release.xcconfig"; path = "Pods/Target Support Files/Pods-TipCalculator/Pods-TipCalculator.release.xcconfig"; sourceTree = "<group>"; };
+		6D9C1F640ACBBA7A5A471B0A /* Pods_TipCalculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TipCalculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACFE65B1540D8EC3CC2AABAE /* Pods-TipCalculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TipCalculator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TipCalculator/Pods-TipCalculator.debug.xcconfig"; sourceTree = "<group>"; };
 		E0897FC71CF0625D00D3DDC8 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0897FCA1CF0625E00D3DDC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0897FCF1CF0625E00D3DDC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E56B8CDD6BB43CC49D04315A /* Pods_TipCalculator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34F931213C60DB9B32E16B9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D9C1F640ACBBA7A5A471B0A /* Pods_TipCalculator.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D274E0D65FC383715D9FB897 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ACFE65B1540D8EC3CC2AABAE /* Pods-TipCalculator.debug.xcconfig */,
+				4DDEFE7B222B64C15E59804C /* Pods-TipCalculator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E0897FBE1CF0625D00D3DDC8 = {
 			isa = PBXGroup;
 			children = (
 				E0897FC91CF0625D00D3DDC8 /* TipCalculator */,
 				E0897FC81CF0625D00D3DDC8 /* Products */,
+				D274E0D65FC383715D9FB897 /* Pods */,
+				34F931213C60DB9B32E16B9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0897FD91CF0625E00D3DDC8 /* Build configuration list for PBXNativeTarget "TipCalculator" */;
 			buildPhases = (
+				210746B172F757CA89D7C67D /* 📦 Check Pods Manifest.lock */,
 				E0897FC31CF0625D00D3DDC8 /* Sources */,
 				E0897FC41CF0625D00D3DDC8 /* Frameworks */,
 				E0897FC51CF0625D00D3DDC8 /* Resources */,
+				AD930031EA2547ACD59193E3 /* 📦 Embed Pods Frameworks */,
+				919100B66160AD18EB6C05C2 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -160,6 +187,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		210746B172F757CA89D7C67D /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		919100B66160AD18EB6C05C2 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TipCalculator/Pods-TipCalculator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD930031EA2547ACD59193E3 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TipCalculator/Pods-TipCalculator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E0897FC31CF0625D00D3DDC8 /* Sources */ = {
@@ -280,6 +355,7 @@
 		};
 		E0897FDA1CF0625E00D3DDC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACFE65B1540D8EC3CC2AABAE /* Pods-TipCalculator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TipCalculator/Info.plist;
@@ -291,6 +367,7 @@
 		};
 		E0897FDB1CF0625E00D3DDC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DDEFE7B222B64C15E59804C /* Pods-TipCalculator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TipCalculator/Info.plist;
@@ -319,6 +396,7 @@
 				E0897FDB1CF0625E00D3DDC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

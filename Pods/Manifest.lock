@@ -1,0 +1,17 @@
+PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - FlagKit (1.0.7)
+
+DEPENDENCIES:
+  - ChameleonFramework/Swift
+  - FlagKit (~> 1.0)
+
+SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  FlagKit: dffc62b4c5db33043c89bbda0bda897077d521e5
+
+PODFILE CHECKSUM: 38bb2d1c0058cf7a313e088fbacc8fad5f443762
+
+COCOAPODS: 1.0.0.rc.2

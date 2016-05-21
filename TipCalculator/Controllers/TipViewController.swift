@@ -20,13 +20,9 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
+    var currentSegmentIndex = 0
     
     var tip: Tip!
-    var currentTipPercent: Float {
-        get {
-            return tip.tipPercentage()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +39,12 @@ class TipViewController: UIViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        percentSegment.selectedSegmentIndex = tip.rawValue
+        calculateTipAndTotalLabel()
     }
     
     // MARK: TextField Delegate method
@@ -67,7 +69,7 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     // MARK: Update TipLabel And Total Label
     func calculateTipAndTotalLabel() {
         if priceTextField.text != "" {
-            tipLabel.text = "\(Float(priceTextField.text!)! * currentTipPercent)"
+            tipLabel.text = "\(Float(priceTextField.text!)! * tip.tipPercentage())"
             totalLabel.text = "\(Float(tipLabel.text!)! + (Float(priceTextField.text!))!)"
         } else {
             tipLabel.text = ""
@@ -78,21 +80,22 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     // MARK: Segment Control Value change
     
     @IBAction func segmentControlAction(sender: UISegmentedControl) {
-        let currentSegmentIndex = sender.selectedSegmentIndex
-        switch currentSegmentIndex {
-        case 0 :
-            tip = Tip.Low
-            calculateTipAndTotalLabel()
-        case 1 :
-            tip = Tip.Medium
-            calculateTipAndTotalLabel()
-        case 2 :
-            tip = Tip.High
-            calculateTipAndTotalLabel()
-        default: break
-        }
+        currentSegmentIndex = sender.selectedSegmentIndex
+        tip.setValueForTip(currentSegmentIndex)
+        calculateTipAndTotalLabel()
     }
 
     @IBAction func settingButtonTapped(sender: UIBarButtonItem) {
+        let settingVC = storyboard?.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
+        settingVC.tip = tip
+        settingVC.delegate = self
+        presentViewController(settingVC, animated: true, completion: nil)
+    }
+}
+
+extension TipViewController: SettingViewControllerDelegate {
+    func currentSegmentIndexChange(tip: Tip) {
+        self.tip = tip
+        calculateTipAndTotalLabel()
     }
 }

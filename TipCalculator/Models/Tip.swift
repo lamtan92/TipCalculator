@@ -21,4 +21,13 @@ enum Tip : Int {
             return 0.2
         }
     }
+    
+    mutating func setValueForTip(index: Int) {
+        switch index {
+        case 0: self = .Low
+        case 1: self = .Medium
+        case 2: self = .High
+        default: break
+        }
+    }
 }

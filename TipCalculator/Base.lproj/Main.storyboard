@@ -194,6 +194,9 @@
                                     <segment title="15%"/>
                                     <segment title="20%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentControlAction:" destination="l2y-m6-xsw" eventType="valueChanged" id="X5J-YW-ule"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9C-en-22r">
                                 <rect key="frame" x="10" y="28" width="35" height="35"/>
@@ -203,7 +206,7 @@
                                 </constraints>
                                 <state key="normal" image="Back" backgroundImage="Back"/>
                                 <connections>
-                                    <action selector="backButtonTouched:" destination="l2y-m6-xsw" eventType="touchUpInside" id="FSe-Mh-995"/>
+                                    <action selector="backButtonTapped:" destination="l2y-m6-xsw" eventType="touchUpInside" id="9Et-jp-l7K"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -222,8 +225,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="backButton" destination="e9C-en-22r" id="aoZ-wM-t51"/>
-                        <outlet property="tipSegmentControl" destination="IpS-SM-Kcc" id="966-rG-aNi"/>
-                        <outlet property="tipSegmentedControl" destination="IpS-SM-Kcc" id="olP-yz-she"/>
+                        <outlet property="tipSegmentControl" destination="IpS-SM-Kcc" id="f3d-nI-ecR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRq-3L-D1C" userLabel="First Responder" sceneMemberID="firstResponder"/>

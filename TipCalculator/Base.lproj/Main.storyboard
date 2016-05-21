@@ -9,7 +9,7 @@
         <!--Tip Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TipViewController" id="BYZ-38-t0r" customClass="TipViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -116,6 +116,16 @@
                         <barButtonItem key="rightBarButtonItem" image="Setting" id="tt2-fl-UbF"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="amountView" destination="hfC-j7-4mT" id="3s4-5R-Eme"/>
+                        <outlet property="flagImageView" destination="5ak-D0-lue" id="RNJ-Yv-XDA"/>
+                        <outlet property="percentSegment" destination="eJi-JS-Eqj" id="hqa-k9-4da"/>
+                        <outlet property="priceTextField" destination="5Kv-XJ-kVt" id="pWJ-a7-8HQ"/>
+                        <outlet property="resultView" destination="p4J-XP-rOR" id="96E-AQ-0Yf"/>
+                        <outlet property="settingBarButton" destination="tt2-fl-UbF" id="PWm-WA-i0H"/>
+                        <outlet property="tipLabel" destination="Q3M-MK-B1A" id="9Gd-Xk-1IE"/>
+                        <outlet property="totalLabel" destination="R8H-Vr-CjB" id="8Mc-fs-j8c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -140,8 +150,70 @@
             </objects>
             <point key="canvasLocation" x="777" y="232"/>
         </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="dZP-Zp-YJB">
+            <objects>
+                <viewController storyboardIdentifier="SettingViewController" automaticallyAdjustsScrollViewInsets="NO" id="l2y-m6-xsw" customClass="SettingViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c3H-Bq-rdU"/>
+                        <viewControllerLayoutGuide type="bottom" id="gIz-ts-Btj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dpk-Pw-qQh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default tip percentage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeB-xX-E8P">
+                                <rect key="frame" x="10" y="100" width="171" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IpS-SM-Kcc">
+                                <rect key="frame" x="10" y="131" width="355" height="29"/>
+                                <segments>
+                                    <segment title="10%"/>
+                                    <segment title="15%"/>
+                                    <segment title="20%"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9C-en-22r">
+                                <rect key="frame" x="10" y="28" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="9Ee-CC-NNG"/>
+                                    <constraint firstAttribute="width" secondItem="e9C-en-22r" secondAttribute="height" multiplier="1:1" id="DOW-ys-JwR"/>
+                                </constraints>
+                                <state key="normal" image="Back" backgroundImage="Back"/>
+                                <connections>
+                                    <action selector="backButtonTouched:" destination="l2y-m6-xsw" eventType="touchUpInside" id="FSe-Mh-995"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e9C-en-22r" firstAttribute="top" secondItem="dpk-Pw-qQh" secondAttribute="top" constant="25" id="2ci-qA-JUO"/>
+                            <constraint firstAttribute="trailing" secondItem="IpS-SM-Kcc" secondAttribute="trailing" constant="10" id="8jO-Vs-fvT"/>
+                            <constraint firstItem="e9C-en-22r" firstAttribute="leading" secondItem="dpk-Pw-qQh" secondAttribute="leading" constant="10" id="E3N-aB-Sbc"/>
+                            <constraint firstItem="XeB-xX-E8P" firstAttribute="leading" secondItem="IpS-SM-Kcc" secondAttribute="leading" id="Vcj-Mt-Tm0"/>
+                            <constraint firstItem="IpS-SM-Kcc" firstAttribute="top" secondItem="XeB-xX-E8P" secondAttribute="bottom" constant="10" id="cOf-2k-ZXZ"/>
+                            <constraint firstItem="IpS-SM-Kcc" firstAttribute="leading" secondItem="dpk-Pw-qQh" secondAttribute="leading" constant="10" id="ej5-9u-0TL"/>
+                            <constraint firstItem="XeB-xX-E8P" firstAttribute="top" secondItem="dpk-Pw-qQh" secondAttribute="top" constant="100" id="mwq-94-pSz"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="backButton" destination="e9C-en-22r" id="aoZ-wM-t51"/>
+                        <outlet property="tipSegmentControl" destination="IpS-SM-Kcc" id="966-rG-aNi"/>
+                        <outlet property="tipSegmentedControl" destination="IpS-SM-Kcc" id="olP-yz-she"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QRq-3L-D1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1720.5" y="231.5"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Back" width="50" height="50"/>
         <image name="Setting" width="16" height="16"/>
     </resources>
 </document>

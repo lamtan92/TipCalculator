@@ -22,6 +22,8 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tipLabel: UILabel!
     var currentSegmentIndex = 0
     
+    var userDefault = NSUserDefaults.standardUserDefaults()
+    
     var tip: Tip!
     
     override func viewDidLoad() {
@@ -43,7 +45,13 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        percentSegment.selectedSegmentIndex = tip.rawValue
+        
+        if let currentSelectedTip = userDefault.objectForKey("currentSelectedTip") as? Int {
+            percentSegment.selectedSegmentIndex = currentSelectedTip
+            tip.setValueForTip(currentSelectedTip)
+        } else {
+            percentSegment.selectedSegmentIndex = tip.rawValue
+        }
         calculateTipAndTotalLabel()
     }
     
@@ -78,13 +86,17 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Segment Control Value change
-    
+
     @IBAction func segmentControlAction(sender: UISegmentedControl) {
         currentSegmentIndex = sender.selectedSegmentIndex
         tip.setValueForTip(currentSegmentIndex)
         calculateTipAndTotalLabel()
+        userDefault.setInteger(tip.rawValue, forKey: "currentSelectedTip")
+        userDefault.synchronize()
     }
 
+    // MARK: settingButton Tapped
+    
     @IBAction func settingButtonTapped(sender: UIBarButtonItem) {
         let settingVC = storyboard?.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
         settingVC.tip = tip
@@ -97,5 +109,7 @@ extension TipViewController: SettingViewControllerDelegate {
     func currentSegmentIndexChange(tip: Tip) {
         self.tip = tip
         calculateTipAndTotalLabel()
+        userDefault.setInteger(tip.rawValue, forKey: "currentSelectedTip")
+        userDefault.synchronize()
     }
 }

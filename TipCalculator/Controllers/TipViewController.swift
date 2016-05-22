@@ -106,8 +106,8 @@ class TipViewController: UIViewController, UITextFieldDelegate {
 //            totalLabel.text = "\(Float(tipLabel.text!)! + (Float(priceTextField.text!))!)"
             let tipNumber = Float(priceTextField.text!)! * tip.tipPercentage()
             let totalNumber = tipNumber + Float(priceTextField.text!)!
-            tipLabel.text = formatNumber.stringFromNumber(tipNumber)
-            totalLabel.text = formatNumber.stringFromNumber(totalNumber)
+            tipLabel.text = formatNumber.stringFromNumber(NSNumber(float: tipNumber))
+            totalLabel.text = formatNumber.stringFromNumber(NSNumber(float: totalNumber))
         } else {
             tipLabel.text = self.currencySymbol
             totalLabel.text = self.currencySymbol

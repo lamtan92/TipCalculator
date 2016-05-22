@@ -14,7 +14,6 @@ protocol SettingViewControllerDelegate: class {
 
 class SettingViewController: UIViewController {
     
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var tipSegmentControl: UISegmentedControl!
     var tip: Tip?
     
@@ -22,15 +21,24 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tipSegmentControl.tintColor = UIColor.flatLimeColor()
+        tipSegmentControl.backgroundColor = UIColor.flatSandColor()
         tipSegmentControl.selectedSegmentIndex = (tip?.rawValue)!
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.hidden = true
+    }
+    
     @IBAction func segmentControlAction(sender: UISegmentedControl) {
         let currentSegmentIndex = sender.selectedSegmentIndex
         tip?.setValueForTip(currentSegmentIndex)
         self.delegate?.currentSegmentIndexChange(self.tip!)
     }
+    
     @IBAction func backButtonTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
 }
 

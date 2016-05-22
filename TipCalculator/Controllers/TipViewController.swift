@@ -12,6 +12,7 @@ import FlagKit
 
 class TipViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var bigNumberLabel: UILabel!
     @IBOutlet weak var settingBarButton: UIBarButtonItem!
     @IBOutlet weak var amountView: UIView!
     @IBOutlet weak var resultView: UIView!
@@ -23,13 +24,18 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     var currentSegmentIndex = 0
     
     var userDefault = NSUserDefaults.standardUserDefaults()
+    var currencySymbol: String!
     
     var tip: Tip!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bigNumberLabel.hidden = true
         tip = .Low
+        
+        percentSegment.tintColor = UIColor.flatLimeColor()
+        percentSegment.backgroundColor = UIColor.flatSandColor()
         
         priceTextField.delegate = self
         priceTextField.becomeFirstResponder()
@@ -46,6 +52,10 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.hidden = false
+        updateLocale()
+        
+        //Get seletedTip from last run application
         if let currentSelectedTip = userDefault.objectForKey("currentSelectedTip") as? Int {
             percentSegment.selectedSegmentIndex = currentSelectedTip
             tip.setValueForTip(currentSelectedTip)
@@ -62,10 +72,21 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        bigNumberLabel.text = string
         return true
     }
     
     func priceTextFieldValueChanged(sender: AnyObject) {
+        self.bigNumberLabel.hidden = false
+        self.bigNumberLabel.alpha = 0
+        UIView.animateWithDuration(0.7, animations: {
+            self.bigNumberLabel.hidden = false
+            self.bigNumberLabel.alpha = 1
+            self.bigNumberLabel.transform = CGAffineTransformMakeScale(2.0, 2.0)
+            }) { _ in
+                self.bigNumberLabel.transform = CGAffineTransformIdentity
+                self.bigNumberLabel.hidden = true
+        }
         calculateTipAndTotalLabel()
     }
     
@@ -83,6 +104,10 @@ class TipViewController: UIViewController, UITextFieldDelegate {
             tipLabel.text = ""
             totalLabel.text = ""
         }
+        tipLabel.text = self.currencySymbol + tipLabel.text!
+        totalLabel.text = self.currencySymbol + totalLabel.text!
+        
+        saveBill()
     }
     
     // MARK: Segment Control Value change
@@ -101,8 +126,16 @@ class TipViewController: UIViewController, UITextFieldDelegate {
         let settingVC = storyboard?.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
         settingVC.tip = tip
         settingVC.delegate = self
-        presentViewController(settingVC, animated: true, completion: nil)
+        navigationController?.pushViewController(settingVC, animated: true)
     }
+    
+    // MARK: Save the bill 
+    
+    func saveBill(){
+        userDefault.setObject(priceTextField.text, forKey: "lastPrice")
+        userDefault.synchronize()
+    }
+
 }
 
 extension TipViewController: SettingViewControllerDelegate {
@@ -111,5 +144,32 @@ extension TipViewController: SettingViewControllerDelegate {
         calculateTipAndTotalLabel()
         userDefault.setInteger(tip.rawValue, forKey: "currentSelectedTip")
         userDefault.synchronize()
+    }
+}
+
+extension TipViewController {
+    // Update Flag and currencySymbol
+    
+    func updateLocale() {
+        updateCurrencySymbol()
+        updateFlag()
+    }
+    
+    func updateFlag() {
+        let image = UIImage(flagImageWithCountryCode: NSLocale.autoupdatingCurrentLocale().objectForKey(NSLocaleCountryCode) as! String)
+        flagImageView.image = image
+    }
+    
+    func updateCurrencySymbol() {
+        let locale = NSLocale.currentLocale()
+        
+        if let currencyCode = locale.objectForKey(NSLocaleCurrencyCode),
+            let currencySymbol = locale.displayNameForKey(NSLocaleCurrencySymbol,
+                                                          value: currencyCode) {
+            self.currencySymbol = currencySymbol
+            priceTextField.placeholder = self.currencySymbol
+        } else {
+            priceTextField.placeholder = "$"
+        }
     }
 }

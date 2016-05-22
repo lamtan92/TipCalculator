@@ -29,6 +29,6 @@ Time spend: 4 hours
 - Flatkit: for flag images
 
 ##Demo
-![Demo](emo.gif)
+![Demo](demo.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).

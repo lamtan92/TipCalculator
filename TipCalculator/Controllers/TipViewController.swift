@@ -24,6 +24,7 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     var currentSegmentIndex = 0
     
     var userDefault = NSUserDefaults.standardUserDefaults()
+    let formatNumber = NSNumberFormatter()
     var currencySymbol: String!
     
     var tip: Tip!
@@ -47,6 +48,8 @@ class TipViewController: UIViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
+        formatNumber.numberStyle = .CurrencyStyle
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,6 +65,7 @@ class TipViewController: UIViewController, UITextFieldDelegate {
         } else {
             percentSegment.selectedSegmentIndex = tip.rawValue
         }
+
         calculateTipAndTotalLabel()
     }
     
@@ -98,16 +102,16 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     // MARK: Update TipLabel And Total Label
     func calculateTipAndTotalLabel() {
         if priceTextField.text != "" {
-            tipLabel.text = "\(Float(priceTextField.text!)! * tip.tipPercentage())"
-            totalLabel.text = "\(Float(tipLabel.text!)! + (Float(priceTextField.text!))!)"
+//            tipLabel.text = "\(Float(priceTextField.text!)! * tip.tipPercentage())"
+//            totalLabel.text = "\(Float(tipLabel.text!)! + (Float(priceTextField.text!))!)"
+            let tipNumber = Float(priceTextField.text!)! * tip.tipPercentage()
+            let totalNumber = tipNumber + Float(priceTextField.text!)!
+            tipLabel.text = formatNumber.stringFromNumber(tipNumber)
+            totalLabel.text = formatNumber.stringFromNumber(totalNumber)
         } else {
-            tipLabel.text = ""
-            totalLabel.text = ""
+            tipLabel.text = self.currencySymbol
+            totalLabel.text = self.currencySymbol
         }
-        tipLabel.text = self.currencySymbol + tipLabel.text!
-        totalLabel.text = self.currencySymbol + totalLabel.text!
-        
-        saveBill()
     }
     
     // MARK: Segment Control Value change
@@ -128,14 +132,6 @@ class TipViewController: UIViewController, UITextFieldDelegate {
         settingVC.delegate = self
         navigationController?.pushViewController(settingVC, animated: true)
     }
-    
-    // MARK: Save the bill 
-    
-    func saveBill(){
-        userDefault.setObject(priceTextField.text, forKey: "lastPrice")
-        userDefault.synchronize()
-    }
-
 }
 
 extension TipViewController: SettingViewControllerDelegate {

@@ -102,8 +102,6 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     // MARK: Update TipLabel And Total Label
     func calculateTipAndTotalLabel() {
         if priceTextField.text != "" {
-//            tipLabel.text = "\(Float(priceTextField.text!)! * tip.tipPercentage())"
-//            totalLabel.text = "\(Float(tipLabel.text!)! + (Float(priceTextField.text!))!)"
             let tipNumber = Float(priceTextField.text!)! * tip.tipPercentage()
             let totalNumber = tipNumber + Float(priceTextField.text!)!
             tipLabel.text = formatNumber.stringFromNumber(NSNumber(float: tipNumber))

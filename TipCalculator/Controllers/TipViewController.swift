@@ -76,8 +76,23 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        bigNumberLabel.text = string
-        return true
+        
+        //  Check valid number
+        //  when first number is 0
+        if(textField.text?.characters.first == "0"){
+            
+            //  Check next character, if next character different with "." or "", we don't add next character.
+            if(textField.text?.characters.count == 1 && !(string == "." || string == "")){
+                return false
+            } else {
+                bigNumberLabel.text = string
+                return true
+            }
+        } else {
+            bigNumberLabel.text = string
+            return true
+        }
+        
     }
     
     func priceTextFieldValueChanged(sender: AnyObject) {
@@ -91,6 +106,7 @@ class TipViewController: UIViewController, UITextFieldDelegate {
                 self.bigNumberLabel.transform = CGAffineTransformIdentity
                 self.bigNumberLabel.hidden = true
         }
+        
         calculateTipAndTotalLabel()
     }
     
@@ -101,15 +117,25 @@ class TipViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Update TipLabel And Total Label
     func calculateTipAndTotalLabel() {
+        
         if priceTextField.text != "" {
-            let tipNumber = Float(priceTextField.text!)! * tip.tipPercentage()
-            let totalNumber = tipNumber + Float(priceTextField.text!)!
+        
+            //  Fix Bug invalid Floar Number
+            //  Check input value is valid Float number
+            var price:Float = 0
+            if let mFloat = Float(priceTextField.text!){
+                price = mFloat
+            }
+                
+            let tipNumber = price * tip.tipPercentage()
+            let totalNumber = tipNumber + price
             tipLabel.text = formatNumber.stringFromNumber(NSNumber(float: tipNumber))
             totalLabel.text = formatNumber.stringFromNumber(NSNumber(float: totalNumber))
         } else {
             tipLabel.text = self.currencySymbol
             totalLabel.text = self.currencySymbol
         }
+        
     }
     
     // MARK: Segment Control Value change
